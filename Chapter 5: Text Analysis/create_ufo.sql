@@ -1,21 +1,21 @@
-DROP table if exists ufo;
-CREATE table ufo
+-- delete the table if it already exist
+BEGIN
+   EXECUTE IMMEDIATE 'DROP TABLE ufo';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+ 
+-- create the table
+CREATE TABLE ufo
 (
-sighting_report varchar(1000)
-,description text
-)
-;
-
--- change localpath to the directory where you saved the ufo .csv files
-
-COPY ufo FROM '/localpath/ufo1.csv' DELIMITER ',' CSV HEADER;
-
-COPY ufo FROM '/localpath/ufo2.csv' DELIMITER ',' CSV HEADER;
-
-COPY ufo FROM '/localpath/ufo3.csv' DELIMITER ',' CSV HEADER;
-
-COPY ufo FROM '/localpath/ufo4.csv' DELIMITER ',' CSV HEADER;
-
-COPY ufo FROM '/localpath/ufo5.csv' DELIMITER ',' CSV HEADER;
-
-
+sighting_report VARCHAR(1000),
+description clob
+);
+ 
+-- import the data in one of three methods Oracle gives you:
+-- 1. Use the SQLDeveloper wizard (right-click table > import)
+-- 2. Use SQL*Loader (must have SQL*Plus installed)
+-- 3. Define the CSV file as an external table
