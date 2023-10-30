@@ -1,429 +1,438 @@
-DROP table if exists public.stop_words;
-CREATE table public.stop_words
-(stop_word varchar
+-- delete the table if it already exist
+BEGIN
+   EXECUTE IMMEDIATE 'DROP TABLE stop_words';
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+ 
+-- create the table
+CREATE TABLE stop_words
+(stop_word VARCHAR(100)
 );
-
-INSERT into public.stop_words
-values
-('a'),
-('about'),
-('above'),
-('across'),
-('after'),
-('again'),
-('against'),
-('all'),
-('almost'),
-('alone'),
-('along'),
-('already'),
-('also'),
-('although'),
-('always'),
-('among'),
-('an'),
-('and'),
-('another'),
-('any'),
-('anybody'),
-('anyone'),
-('anything'),
-('anywhere'),
-('are'),
-('around'),
-('as'),
-('ask'),
-('asked'),
-('asking'),
-('asks'),
-('at'),
-('away'),
-('b'),
-('back'),
-('backed'),
-('backing'),
-('backs'),
-('be'),
-('became'),
-('because'),
-('become'),
-('becomes'),
-('been'),
-('before'),
-('began'),
-('behind'),
-('being'),
-('beings'),
-('best'),
-('better'),
-('between'),
-('big'),
-('both'),
-('but'),
-('by'),
-('c'),
-('came'),
-('can'),
-('cannot'),
-('case'),
-('cases'),
-('certain'),
-('certainly'),
-('clear'),
-('clearly'),
-('come'),
-('could'),
-('d'),
-('did'),
-('differ'),
-('different'),
-('differently'),
-('do'),
-('does'),
-('done'),
-('down'),
-('down'),
-('downed'),
-('downing'),
-('downs'),
-('during'),
-('e'),
-('each'),
-('early'),
-('either'),
-('end'),
-('ended'),
-('ending'),
-('ends'),
-('enough'),
-('even'),
-('evenly'),
-('ever'),
-('every'),
-('everybody'),
-('everyone'),
-('everything'),
-('everywhere'),
-('f'),
-('face'),
-('faces'),
-('far'),
-('felt'),
-('few'),
-('find'),
-('finds'),
-('first'),
-('for'),
-('four'),
-('from'),
-('full'),
-('fully'),
-('further'),
-('furthered'),
-('furthering'),
-('furthers'),
-('g'),
-('gave'),
-('general'),
-('generally'),
-('get'),
-('gets'),
-('give'),
-('given'),
-('gives'),
-('go'),
-('going'),
-('good'),
-('goods'),
-('got'),
-('great'),
-('greater'),
-('greatest'),
-('group'),
-('grouped'),
-('grouping'),
-('groups'),
-('h'),
-('had'),
-('has'),
-('have'),
-('having'),
-('he'),
-('her'),
-('here'),
-('herself'),
-('high'),
-('higher'),
-('highest'),
-('him'),
-('himself'),
-('his'),
-('how'),
-('however'),
-('i'),
-('if'),
-('important'),
-('in'),
-('interest'),
-('interested'),
-('interesting'),
-('interests'),
-('into'),
-('is'),
-('it'),
-('its'),
-('itself'),
-('j'),
-('just'),
-('k'),
-('keep'),
-('keeps'),
-('kind'),
-('knew'),
-('know'),
-('known'),
-('knows'),
-('l'),
-('large'),
-('largely'),
-('last'),
-('later'),
-('latest'),
-('least'),
-('less'),
-('let'),
-('lets'),
-('like'),
-('likely'),
-('long'),
-('longer'),
-('longest'),
-('m'),
-('made'),
-('make'),
-('making'),
-('man'),
-('many'),
-('may'),
-('me'),
-('member'),
-('members'),
-('men'),
-('might'),
-('more'),
-('most'),
-('mostly'),
-('mr'),
-('mrs'),
-('much'),
-('must'),
-('my'),
-('myself'),
-('n'),
-('necessary'),
-('need'),
-('needed'),
-('needing'),
-('needs'),
-('never'),
-('new'),
-('new'),
-('newer'),
-('newest'),
-('next'),
-('no'),
-('nobody'),
-('non'),
-('noone'),
-('not'),
-('nothing'),
-('now'),
-('nowhere'),
-('number'),
-('numbers'),
-('o'),
-('of'),
-('off'),
-('often'),
-('old'),
-('older'),
-('oldest'),
-('on'),
-('once'),
-('one'),
-('only'),
-('open'),
-('opened'),
-('opening'),
-('opens'),
-('or'),
-('order'),
-('ordered'),
-('ordering'),
-('orders'),
-('other'),
-('others'),
-('our'),
-('out'),
-('over'),
-('p'),
-('part'),
-('parted'),
-('parting'),
-('parts'),
-('per'),
-('perhaps'),
-('place'),
-('places'),
-('pointing'),
-('points'),
-('possible'),
-('present'),
-('presented'),
-('presenting'),
-('presents'),
-('problem'),
-('problems'),
-('put'),
-('puts'),
-('q'),
-('quite'),
-('r'),
-('rather'),
-('really'),
-('right'),
-('right'),
-('room'),
-('rooms'),
-('s'),
-('said'),
-('same'),
-('saw'),
-('say'),
-('says'),
-('second'),
-('seconds'),
-('see'),
-('seem'),
-('seemed'),
-('seeming'),
-('seems'),
-('sees'),
-('several'),
-('shall'),
-('she'),
-('should'),
-('show'),
-('showed'),
-('showing'),
-('shows'),
-('side'),
-('sides'),
-('since'),
-('small'),
-('smaller'),
-('smallest'),
-('so'),
-('some'),
-('somebody'),
-('someone'),
-('something'),
-('somewhere'),
-('state'),
-('states'),
-('still'),
-('still'),
-('such'),
-('sure'),
-('t'),
-('take'),
-('taken'),
-('than'),
-('that'),
-('the'),
-('their'),
-('them'),
-('then'),
-('there'),
-('therefore'),
-('these'),
-('they'),
-('thing'),
-('things'),
-('think'),
-('thinks'),
-('this'),
-('those'),
-('though'),
-('thought'),
-('thoughts'),
-('three'),
-('through'),
-('thus'),
-('to'),
-('today'),
-('together'),
-('too'),
-('took'),
-('toward'),
-('turn'),
-('turned'),
-('turning'),
-('turns'),
-('two'),
-('u'),
-('under'),
-('until'),
-('up'),
-('upon'),
-('us'),
-('use'),
-('used'),
-('uses'),
-('v'),
-('very'),
-('w'),
-('want'),
-('wanted'),
-('wanting'),
-('wants'),
-('was'),
-('way'),
-('ways'),
-('we'),
-('well'),
-('wells'),
-('went'),
-('were'),
-('what'),
-('when'),
-('where'),
-('whether'),
-('which'),
-('while'),
-('who'),
-('whole'),
-('whose'),
-('why'),
-('will'),
-('with'),
-('within'),
-('without'),
-('work'),
-('worked'),
-('working'),
-('works'),
-('would'),
-('x'),
-('y'),
-('year'),
-('years'),
-('yet'),
-('you'),
-('young'),
-('younger'),
-('youngest'),
-('your'),
-('yours'),
-('z')
-;
+ 
+INSERT ALL
+INTO stop_words(stop_word) VALUES ('a')
+INTO stop_words(stop_word) VALUES ('about')
+INTO stop_words(stop_word) VALUES ('above')
+INTO stop_words(stop_word) VALUES ('across')
+INTO stop_words(stop_word) VALUES ('after')
+INTO stop_words(stop_word) VALUES ('again')
+INTO stop_words(stop_word) VALUES ('against')
+INTO stop_words(stop_word) VALUES ('all')
+INTO stop_words(stop_word) VALUES ('almost')
+INTO stop_words(stop_word) VALUES ('alone')
+INTO stop_words(stop_word) VALUES ('along')
+INTO stop_words(stop_word) VALUES ('already')
+INTO stop_words(stop_word) VALUES ('also')
+INTO stop_words(stop_word) VALUES ('although')
+INTO stop_words(stop_word) VALUES ('always')
+INTO stop_words(stop_word) VALUES ('among')
+INTO stop_words(stop_word) VALUES ('an')
+INTO stop_words(stop_word) VALUES ('and')
+INTO stop_words(stop_word) VALUES ('another')
+INTO stop_words(stop_word) VALUES ('any')
+INTO stop_words(stop_word) VALUES ('anybody')
+INTO stop_words(stop_word) VALUES ('anyone')
+INTO stop_words(stop_word) VALUES ('anything')
+INTO stop_words(stop_word) VALUES ('anywhere')
+INTO stop_words(stop_word) VALUES ('are')
+INTO stop_words(stop_word) VALUES ('around')
+INTO stop_words(stop_word) VALUES ('as')
+INTO stop_words(stop_word) VALUES ('ask')
+INTO stop_words(stop_word) VALUES ('asked')
+INTO stop_words(stop_word) VALUES ('asking')
+INTO stop_words(stop_word) VALUES ('asks')
+INTO stop_words(stop_word) VALUES ('at')
+INTO stop_words(stop_word) VALUES ('away')
+INTO stop_words(stop_word) VALUES ('b')
+INTO stop_words(stop_word) VALUES ('back')
+INTO stop_words(stop_word) VALUES ('backed')
+INTO stop_words(stop_word) VALUES ('backing')
+INTO stop_words(stop_word) VALUES ('backs')
+INTO stop_words(stop_word) VALUES ('be')
+INTO stop_words(stop_word) VALUES ('became')
+INTO stop_words(stop_word) VALUES ('because')
+INTO stop_words(stop_word) VALUES ('become')
+INTO stop_words(stop_word) VALUES ('becomes')
+INTO stop_words(stop_word) VALUES ('been')
+INTO stop_words(stop_word) VALUES ('before')
+INTO stop_words(stop_word) VALUES ('began')
+INTO stop_words(stop_word) VALUES ('behind')
+INTO stop_words(stop_word) VALUES ('being')
+INTO stop_words(stop_word) VALUES ('beings')
+INTO stop_words(stop_word) VALUES ('best')
+INTO stop_words(stop_word) VALUES ('better')
+INTO stop_words(stop_word) VALUES ('between')
+INTO stop_words(stop_word) VALUES ('big')
+INTO stop_words(stop_word) VALUES ('both')
+INTO stop_words(stop_word) VALUES ('but')
+INTO stop_words(stop_word) VALUES ('by')
+INTO stop_words(stop_word) VALUES ('c')
+INTO stop_words(stop_word) VALUES ('came')
+INTO stop_words(stop_word) VALUES ('can')
+INTO stop_words(stop_word) VALUES ('cannot')
+INTO stop_words(stop_word) VALUES ('case')
+INTO stop_words(stop_word) VALUES ('cases')
+INTO stop_words(stop_word) VALUES ('certain')
+INTO stop_words(stop_word) VALUES ('certainly')
+INTO stop_words(stop_word) VALUES ('clear')
+INTO stop_words(stop_word) VALUES ('clearly')
+INTO stop_words(stop_word) VALUES ('come')
+INTO stop_words(stop_word) VALUES ('could')
+INTO stop_words(stop_word) VALUES ('d')
+INTO stop_words(stop_word) VALUES ('did')
+INTO stop_words(stop_word) VALUES ('differ')
+INTO stop_words(stop_word) VALUES ('different')
+INTO stop_words(stop_word) VALUES ('differently')
+INTO stop_words(stop_word) VALUES ('do')
+INTO stop_words(stop_word) VALUES ('does')
+INTO stop_words(stop_word) VALUES ('done')
+INTO stop_words(stop_word) VALUES ('down')
+INTO stop_words(stop_word) VALUES ('down')
+INTO stop_words(stop_word) VALUES ('downed')
+INTO stop_words(stop_word) VALUES ('downing')
+INTO stop_words(stop_word) VALUES ('downs')
+INTO stop_words(stop_word) VALUES ('during')
+INTO stop_words(stop_word) VALUES ('e')
+INTO stop_words(stop_word) VALUES ('each')
+INTO stop_words(stop_word) VALUES ('early')
+INTO stop_words(stop_word) VALUES ('either')
+INTO stop_words(stop_word) VALUES ('end')
+INTO stop_words(stop_word) VALUES ('ended')
+INTO stop_words(stop_word) VALUES ('ending')
+INTO stop_words(stop_word) VALUES ('ends')
+INTO stop_words(stop_word) VALUES ('enough')
+INTO stop_words(stop_word) VALUES ('even')
+INTO stop_words(stop_word) VALUES ('evenly')
+INTO stop_words(stop_word) VALUES ('ever')
+INTO stop_words(stop_word) VALUES ('every')
+INTO stop_words(stop_word) VALUES ('everybody')
+INTO stop_words(stop_word) VALUES ('everyone')
+INTO stop_words(stop_word) VALUES ('everything')
+INTO stop_words(stop_word) VALUES ('everywhere')
+INTO stop_words(stop_word) VALUES ('f')
+INTO stop_words(stop_word) VALUES ('face')
+INTO stop_words(stop_word) VALUES ('faces')
+INTO stop_words(stop_word) VALUES ('far')
+INTO stop_words(stop_word) VALUES ('felt')
+INTO stop_words(stop_word) VALUES ('few')
+INTO stop_words(stop_word) VALUES ('find')
+INTO stop_words(stop_word) VALUES ('finds')
+INTO stop_words(stop_word) VALUES ('first')
+INTO stop_words(stop_word) VALUES ('for')
+INTO stop_words(stop_word) VALUES ('four')
+INTO stop_words(stop_word) VALUES ('from')
+INTO stop_words(stop_word) VALUES ('full')
+INTO stop_words(stop_word) VALUES ('fully')
+INTO stop_words(stop_word) VALUES ('further')
+INTO stop_words(stop_word) VALUES ('furthered')
+INTO stop_words(stop_word) VALUES ('furthering')
+INTO stop_words(stop_word) VALUES ('furthers')
+INTO stop_words(stop_word) VALUES ('g')
+INTO stop_words(stop_word) VALUES ('gave')
+INTO stop_words(stop_word) VALUES ('general')
+INTO stop_words(stop_word) VALUES ('generally')
+INTO stop_words(stop_word) VALUES ('get')
+INTO stop_words(stop_word) VALUES ('gets')
+INTO stop_words(stop_word) VALUES ('give')
+INTO stop_words(stop_word) VALUES ('given')
+INTO stop_words(stop_word) VALUES ('gives')
+INTO stop_words(stop_word) VALUES ('go')
+INTO stop_words(stop_word) VALUES ('going')
+INTO stop_words(stop_word) VALUES ('good')
+INTO stop_words(stop_word) VALUES ('goods')
+INTO stop_words(stop_word) VALUES ('got')
+INTO stop_words(stop_word) VALUES ('great')
+INTO stop_words(stop_word) VALUES ('greater')
+INTO stop_words(stop_word) VALUES ('greatest')
+INTO stop_words(stop_word) VALUES ('group')
+INTO stop_words(stop_word) VALUES ('grouped')
+INTO stop_words(stop_word) VALUES ('grouping')
+INTO stop_words(stop_word) VALUES ('groups')
+INTO stop_words(stop_word) VALUES ('h')
+INTO stop_words(stop_word) VALUES ('had')
+INTO stop_words(stop_word) VALUES ('has')
+INTO stop_words(stop_word) VALUES ('have')
+INTO stop_words(stop_word) VALUES ('having')
+INTO stop_words(stop_word) VALUES ('he')
+INTO stop_words(stop_word) VALUES ('her')
+INTO stop_words(stop_word) VALUES ('here')
+INTO stop_words(stop_word) VALUES ('herself')
+INTO stop_words(stop_word) VALUES ('high')
+INTO stop_words(stop_word) VALUES ('higher')
+INTO stop_words(stop_word) VALUES ('highest')
+INTO stop_words(stop_word) VALUES ('him')
+INTO stop_words(stop_word) VALUES ('himself')
+INTO stop_words(stop_word) VALUES ('his')
+INTO stop_words(stop_word) VALUES ('how')
+INTO stop_words(stop_word) VALUES ('however')
+INTO stop_words(stop_word) VALUES ('i')
+INTO stop_words(stop_word) VALUES ('if')
+INTO stop_words(stop_word) VALUES ('important')
+INTO stop_words(stop_word) VALUES ('in')
+INTO stop_words(stop_word) VALUES ('interest')
+INTO stop_words(stop_word) VALUES ('interested')
+INTO stop_words(stop_word) VALUES ('interesting')
+INTO stop_words(stop_word) VALUES ('interests')
+INTO stop_words(stop_word) VALUES ('into')
+INTO stop_words(stop_word) VALUES ('is')
+INTO stop_words(stop_word) VALUES ('it')
+INTO stop_words(stop_word) VALUES ('its')
+INTO stop_words(stop_word) VALUES ('itself')
+INTO stop_words(stop_word) VALUES ('j')
+INTO stop_words(stop_word) VALUES ('just')
+INTO stop_words(stop_word) VALUES ('k')
+INTO stop_words(stop_word) VALUES ('keep')
+INTO stop_words(stop_word) VALUES ('keeps')
+INTO stop_words(stop_word) VALUES ('kind')
+INTO stop_words(stop_word) VALUES ('knew')
+INTO stop_words(stop_word) VALUES ('know')
+INTO stop_words(stop_word) VALUES ('known')
+INTO stop_words(stop_word) VALUES ('knows')
+INTO stop_words(stop_word) VALUES ('l')
+INTO stop_words(stop_word) VALUES ('large')
+INTO stop_words(stop_word) VALUES ('largely')
+INTO stop_words(stop_word) VALUES ('last')
+INTO stop_words(stop_word) VALUES ('later')
+INTO stop_words(stop_word) VALUES ('latest')
+INTO stop_words(stop_word) VALUES ('least')
+INTO stop_words(stop_word) VALUES ('less')
+INTO stop_words(stop_word) VALUES ('let')
+INTO stop_words(stop_word) VALUES ('lets')
+INTO stop_words(stop_word) VALUES ('like')
+INTO stop_words(stop_word) VALUES ('likely')
+INTO stop_words(stop_word) VALUES ('long')
+INTO stop_words(stop_word) VALUES ('longer')
+INTO stop_words(stop_word) VALUES ('longest')
+INTO stop_words(stop_word) VALUES ('m')
+INTO stop_words(stop_word) VALUES ('made')
+INTO stop_words(stop_word) VALUES ('make')
+INTO stop_words(stop_word) VALUES ('making')
+INTO stop_words(stop_word) VALUES ('man')
+INTO stop_words(stop_word) VALUES ('many')
+INTO stop_words(stop_word) VALUES ('may')
+INTO stop_words(stop_word) VALUES ('me')
+INTO stop_words(stop_word) VALUES ('member')
+INTO stop_words(stop_word) VALUES ('members')
+INTO stop_words(stop_word) VALUES ('men')
+INTO stop_words(stop_word) VALUES ('might')
+INTO stop_words(stop_word) VALUES ('more')
+INTO stop_words(stop_word) VALUES ('most')
+INTO stop_words(stop_word) VALUES ('mostly')
+INTO stop_words(stop_word) VALUES ('mr')
+INTO stop_words(stop_word) VALUES ('mrs')
+INTO stop_words(stop_word) VALUES ('much')
+INTO stop_words(stop_word) VALUES ('must')
+INTO stop_words(stop_word) VALUES ('my')
+INTO stop_words(stop_word) VALUES ('myself')
+INTO stop_words(stop_word) VALUES ('n')
+INTO stop_words(stop_word) VALUES ('necessary')
+INTO stop_words(stop_word) VALUES ('need')
+INTO stop_words(stop_word) VALUES ('needed')
+INTO stop_words(stop_word) VALUES ('needing')
+INTO stop_words(stop_word) VALUES ('needs')
+INTO stop_words(stop_word) VALUES ('never')
+INTO stop_words(stop_word) VALUES ('new')
+INTO stop_words(stop_word) VALUES ('new')
+INTO stop_words(stop_word) VALUES ('newer')
+INTO stop_words(stop_word) VALUES ('newest')
+INTO stop_words(stop_word) VALUES ('next')
+INTO stop_words(stop_word) VALUES ('no')
+INTO stop_words(stop_word) VALUES ('nobody')
+INTO stop_words(stop_word) VALUES ('non')
+INTO stop_words(stop_word) VALUES ('noone')
+INTO stop_words(stop_word) VALUES ('not')
+INTO stop_words(stop_word) VALUES ('nothing')
+INTO stop_words(stop_word) VALUES ('now')
+INTO stop_words(stop_word) VALUES ('nowhere')
+INTO stop_words(stop_word) VALUES ('number')
+INTO stop_words(stop_word) VALUES ('numbers')
+INTO stop_words(stop_word) VALUES ('o')
+INTO stop_words(stop_word) VALUES ('of')
+INTO stop_words(stop_word) VALUES ('off')
+INTO stop_words(stop_word) VALUES ('often')
+INTO stop_words(stop_word) VALUES ('old')
+INTO stop_words(stop_word) VALUES ('older')
+INTO stop_words(stop_word) VALUES ('oldest')
+INTO stop_words(stop_word) VALUES ('on')
+INTO stop_words(stop_word) VALUES ('once')
+INTO stop_words(stop_word) VALUES ('one')
+INTO stop_words(stop_word) VALUES ('only')
+INTO stop_words(stop_word) VALUES ('open')
+INTO stop_words(stop_word) VALUES ('opened')
+INTO stop_words(stop_word) VALUES ('opening')
+INTO stop_words(stop_word) VALUES ('opens')
+INTO stop_words(stop_word) VALUES ('or')
+INTO stop_words(stop_word) VALUES ('order')
+INTO stop_words(stop_word) VALUES ('ordered')
+INTO stop_words(stop_word) VALUES ('ordering')
+INTO stop_words(stop_word) VALUES ('orders')
+INTO stop_words(stop_word) VALUES ('other')
+INTO stop_words(stop_word) VALUES ('others')
+INTO stop_words(stop_word) VALUES ('our')
+INTO stop_words(stop_word) VALUES ('out')
+INTO stop_words(stop_word) VALUES ('over')
+INTO stop_words(stop_word) VALUES ('p')
+INTO stop_words(stop_word) VALUES ('part')
+INTO stop_words(stop_word) VALUES ('parted')
+INTO stop_words(stop_word) VALUES ('parting')
+INTO stop_words(stop_word) VALUES ('parts')
+INTO stop_words(stop_word) VALUES ('per')
+INTO stop_words(stop_word) VALUES ('perhaps')
+INTO stop_words(stop_word) VALUES ('place')
+INTO stop_words(stop_word) VALUES ('places')
+INTO stop_words(stop_word) VALUES ('pointing')
+INTO stop_words(stop_word) VALUES ('points')
+INTO stop_words(stop_word) VALUES ('possible')
+INTO stop_words(stop_word) VALUES ('present')
+INTO stop_words(stop_word) VALUES ('presented')
+INTO stop_words(stop_word) VALUES ('presenting')
+INTO stop_words(stop_word) VALUES ('presents')
+INTO stop_words(stop_word) VALUES ('problem')
+INTO stop_words(stop_word) VALUES ('problems')
+INTO stop_words(stop_word) VALUES ('put')
+INTO stop_words(stop_word) VALUES ('puts')
+INTO stop_words(stop_word) VALUES ('q')
+INTO stop_words(stop_word) VALUES ('quite')
+INTO stop_words(stop_word) VALUES ('r')
+INTO stop_words(stop_word) VALUES ('rather')
+INTO stop_words(stop_word) VALUES ('really')
+INTO stop_words(stop_word) VALUES ('right')
+INTO stop_words(stop_word) VALUES ('right')
+INTO stop_words(stop_word) VALUES ('room')
+INTO stop_words(stop_word) VALUES ('rooms')
+INTO stop_words(stop_word) VALUES ('s')
+INTO stop_words(stop_word) VALUES ('said')
+INTO stop_words(stop_word) VALUES ('same')
+INTO stop_words(stop_word) VALUES ('saw')
+INTO stop_words(stop_word) VALUES ('say')
+INTO stop_words(stop_word) VALUES ('says')
+INTO stop_words(stop_word) VALUES ('second')
+INTO stop_words(stop_word) VALUES ('seconds')
+INTO stop_words(stop_word) VALUES ('see')
+INTO stop_words(stop_word) VALUES ('seem')
+INTO stop_words(stop_word) VALUES ('seemed')
+INTO stop_words(stop_word) VALUES ('seeming')
+INTO stop_words(stop_word) VALUES ('seems')
+INTO stop_words(stop_word) VALUES ('sees')
+INTO stop_words(stop_word) VALUES ('several')
+INTO stop_words(stop_word) VALUES ('shall')
+INTO stop_words(stop_word) VALUES ('she')
+INTO stop_words(stop_word) VALUES ('should')
+INTO stop_words(stop_word) VALUES ('show')
+INTO stop_words(stop_word) VALUES ('showed')
+INTO stop_words(stop_word) VALUES ('showing')
+INTO stop_words(stop_word) VALUES ('shows')
+INTO stop_words(stop_word) VALUES ('side')
+INTO stop_words(stop_word) VALUES ('sides')
+INTO stop_words(stop_word) VALUES ('since')
+INTO stop_words(stop_word) VALUES ('small')
+INTO stop_words(stop_word) VALUES ('smaller')
+INTO stop_words(stop_word) VALUES ('smallest')
+INTO stop_words(stop_word) VALUES ('so')
+INTO stop_words(stop_word) VALUES ('some')
+INTO stop_words(stop_word) VALUES ('somebody')
+INTO stop_words(stop_word) VALUES ('someone')
+INTO stop_words(stop_word) VALUES ('something')
+INTO stop_words(stop_word) VALUES ('somewhere')
+INTO stop_words(stop_word) VALUES ('state')
+INTO stop_words(stop_word) VALUES ('states')
+INTO stop_words(stop_word) VALUES ('still')
+INTO stop_words(stop_word) VALUES ('still')
+INTO stop_words(stop_word) VALUES ('such')
+INTO stop_words(stop_word) VALUES ('sure')
+INTO stop_words(stop_word) VALUES ('t')
+INTO stop_words(stop_word) VALUES ('take')
+INTO stop_words(stop_word) VALUES ('taken')
+INTO stop_words(stop_word) VALUES ('than')
+INTO stop_words(stop_word) VALUES ('that')
+INTO stop_words(stop_word) VALUES ('the')
+INTO stop_words(stop_word) VALUES ('their')
+INTO stop_words(stop_word) VALUES ('them')
+INTO stop_words(stop_word) VALUES ('then')
+INTO stop_words(stop_word) VALUES ('there')
+INTO stop_words(stop_word) VALUES ('therefore')
+INTO stop_words(stop_word) VALUES ('these')
+INTO stop_words(stop_word) VALUES ('they')
+INTO stop_words(stop_word) VALUES ('thing')
+INTO stop_words(stop_word) VALUES ('things')
+INTO stop_words(stop_word) VALUES ('think')
+INTO stop_words(stop_word) VALUES ('thinks')
+INTO stop_words(stop_word) VALUES ('this')
+INTO stop_words(stop_word) VALUES ('those')
+INTO stop_words(stop_word) VALUES ('though')
+INTO stop_words(stop_word) VALUES ('thought')
+INTO stop_words(stop_word) VALUES ('thoughts')
+INTO stop_words(stop_word) VALUES ('three')
+INTO stop_words(stop_word) VALUES ('through')
+INTO stop_words(stop_word) VALUES ('thus')
+INTO stop_words(stop_word) VALUES ('to')
+INTO stop_words(stop_word) VALUES ('today')
+INTO stop_words(stop_word) VALUES ('together')
+INTO stop_words(stop_word) VALUES ('too')
+INTO stop_words(stop_word) VALUES ('took')
+INTO stop_words(stop_word) VALUES ('toward')
+INTO stop_words(stop_word) VALUES ('turn')
+INTO stop_words(stop_word) VALUES ('turned')
+INTO stop_words(stop_word) VALUES ('turning')
+INTO stop_words(stop_word) VALUES ('turns')
+INTO stop_words(stop_word) VALUES ('two')
+INTO stop_words(stop_word) VALUES ('u')
+INTO stop_words(stop_word) VALUES ('under')
+INTO stop_words(stop_word) VALUES ('until')
+INTO stop_words(stop_word) VALUES ('up')
+INTO stop_words(stop_word) VALUES ('upon')
+INTO stop_words(stop_word) VALUES ('us')
+INTO stop_words(stop_word) VALUES ('use')
+INTO stop_words(stop_word) VALUES ('used')
+INTO stop_words(stop_word) VALUES ('uses')
+INTO stop_words(stop_word) VALUES ('v')
+INTO stop_words(stop_word) VALUES ('very')
+INTO stop_words(stop_word) VALUES ('w')
+INTO stop_words(stop_word) VALUES ('want')
+INTO stop_words(stop_word) VALUES ('wanted')
+INTO stop_words(stop_word) VALUES ('wanting')
+INTO stop_words(stop_word) VALUES ('wants')
+INTO stop_words(stop_word) VALUES ('was')
+INTO stop_words(stop_word) VALUES ('way')
+INTO stop_words(stop_word) VALUES ('ways')
+INTO stop_words(stop_word) VALUES ('we')
+INTO stop_words(stop_word) VALUES ('well')
+INTO stop_words(stop_word) VALUES ('wells')
+INTO stop_words(stop_word) VALUES ('went')
+INTO stop_words(stop_word) VALUES ('were')
+INTO stop_words(stop_word) VALUES ('what')
+INTO stop_words(stop_word) VALUES ('when')
+INTO stop_words(stop_word) VALUES ('where')
+INTO stop_words(stop_word) VALUES ('whether')
+INTO stop_words(stop_word) VALUES ('which')
+INTO stop_words(stop_word) VALUES ('while')
+INTO stop_words(stop_word) VALUES ('who')
+INTO stop_words(stop_word) VALUES ('whole')
+INTO stop_words(stop_word) VALUES ('whose')
+INTO stop_words(stop_word) VALUES ('why')
+INTO stop_words(stop_word) VALUES ('will')
+INTO stop_words(stop_word) VALUES ('with')
+INTO stop_words(stop_word) VALUES ('within')
+INTO stop_words(stop_word) VALUES ('without')
+INTO stop_words(stop_word) VALUES ('work')
+INTO stop_words(stop_word) VALUES ('worked')
+INTO stop_words(stop_word) VALUES ('working')
+INTO stop_words(stop_word) VALUES ('works')
+INTO stop_words(stop_word) VALUES ('would')
+INTO stop_words(stop_word) VALUES ('x')
+INTO stop_words(stop_word) VALUES ('y')
+INTO stop_words(stop_word) VALUES ('year')
+INTO stop_words(stop_word) VALUES ('years')
+INTO stop_words(stop_word) VALUES ('yet')
+INTO stop_words(stop_word) VALUES ('you')
+INTO stop_words(stop_word) VALUES ('young')
+INTO stop_words(stop_word) VALUES ('younger')
+INTO stop_words(stop_word) VALUES ('youngest')
+INTO stop_words(stop_word) VALUES ('your')
+INTO stop_words(stop_word) VALUES ('yours')
+INTO stop_words(stop_word) VALUES ('z')
+SELECT 1 FROM DUAL; 
